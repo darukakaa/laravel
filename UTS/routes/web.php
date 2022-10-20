@@ -18,6 +18,8 @@ use App\Http\Controllers\HomeController;
 //     return view('welcome');
 // });
 
+
+
 Route::get('/', [HomeController::class, 'checkUserType']);
 
 Route::get('/admin/dashboard', function(){
@@ -28,6 +30,11 @@ Route::get('/user/dashboard', function(){
     return view('user-dashboard');
 })->name('user.dashboard');
 
+route::get('/register', function ()
+{
+    return view('/auth/register');
+})->name('register');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -37,3 +44,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+Route::get('/product', 'ProductController@index')->name('product');
+Route::get('/create', 'ProductController@create')->name('create');
+Route::post('store/', 'ProductController@store')->name('store');
+Route::get('show/{product}', 'ProductController@show')->name('show');
+Route::get('edit/{product}', 'ProductController@edit')->name('edit');
+Route::put('edit/{product}','ProductController@update')->name('update');
+Route::delete('/{product}','ProductController@destroy')->name('destroy');
+
